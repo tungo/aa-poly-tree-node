@@ -36,7 +36,7 @@ class PolyTreeNode
 
   def remove_child(child_node)
     raise "Not a child" unless @children.include?(child_node)
-    if child_node.is_a?(PolyTreeNode )
+    if child_node.is_a?(PolyTreeNode)
       child_node.parent = nil
       @children.delete(child_node)
     end
@@ -44,6 +44,7 @@ class PolyTreeNode
 
   def dfs(target_value)
     return self if @value == target_value
+
     result = nil
     @children.each do |child|
       result = child.dfs(target_value)
@@ -56,11 +57,9 @@ class PolyTreeNode
     queue = [self]
     until queue.empty?
       current_node = queue.shift
-      if current_node.value == target_value
-        return current_node
-      else
-        current_node.children.each { |child| queue << child }
-      end
+      return current_node if current_node.value == target_value
+
+      current_node.children.each { |child| queue << child }
     end
 
     nil

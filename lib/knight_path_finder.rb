@@ -20,7 +20,22 @@ class KnightPathFinder
   end
 
   def find_path(end_pos)
+    end_node = @tree.dfs(end_pos)
+    return nil if end_node.nil?
 
+    trace_path_back(end_node)
+  end
+
+  def trace_path_back(node)
+    path = []
+
+    until node.parent.nil?
+      path << node.value
+      node = node.parent
+    end
+
+    path << @pos
+    path.reverse
   end
 
   def new_move_positions(pos)
@@ -64,5 +79,8 @@ class KnightPathFinder
 end
 
 if __FILE__ == $PROGRAM_NAME
-
+  kpf = KnightPathFinder.new([5,5])
+  p kpf.find_path([3, 5])
+  p kpf.find_path([1, 8])
+  p kpf.find_path([5, 6])
 end
