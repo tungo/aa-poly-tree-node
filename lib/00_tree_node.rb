@@ -18,7 +18,15 @@ class PolyTreeNode
   end
 
   def parent=(node)
-    @parent = node if node.is_a?(PolyTreeNode)
-    node.children  << self 
+    @parent.children.delete(self) unless @parent.nil?
+
+    if node.is_a?(PolyTreeNode)
+      @parent = node
+      node.children << self
+    elsif node.nil?
+      @parent = node
+    end
   end
+
+
 end
