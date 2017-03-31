@@ -28,5 +28,18 @@ class PolyTreeNode
     end
   end
 
+  def add_child(child_node)
+    if child_node.is_a?(PolyTreeNode)
+      child_node.parent = self
+    end
+  end
+
+  def remove_child(child_node)
+    raise "Not a child" unless @children.include?(child_node)
+    if child_node.is_a?(PolyTreeNode )
+      child_node.parent = nil
+      @children.delete(child_node)
+    end
+  end
 
 end
